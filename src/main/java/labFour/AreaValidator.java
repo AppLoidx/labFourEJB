@@ -1,9 +1,16 @@
 package labFour;
 
 import javax.ejb.Singleton;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 
 @Singleton
+@Path("somepath")
 public class AreaValidator implements LocalAreaValidator {
+
+    @GET
+    public String get() {return  "kek";}
+
     @Override
     public String checkArea(double x, double y, double r) {
 

@@ -7,7 +7,7 @@ import org.hibernate.annotations.Table;
 import java.util.Objects;
 
 @Entity
-@Table(appliesTo ="webdots")
+@javax.persistence.Table(name ="webdots")
 public class Dot {
     @Id
     @GeneratedValue

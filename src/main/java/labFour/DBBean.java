@@ -5,6 +5,7 @@ import domain.User;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -13,26 +14,25 @@ import java.util.List;
 @Stateless
 public class DBBean implements LocalDB {
 
-    @EJB
+    @Inject
     private ManagerBean mb;
 
-    @PostConstruct
-    public void init() {
-        if (mb == null) {
-            mb = new ManagerBean();
-        }
-    }
 
-    @EJB
+    @Inject
     private AreaValidator av;
 
     @GET
     @Override
     @Produces(MediaType.APPLICATION_JSON) //отправляемый тип данных
     public List<DotDTO> get(@CookieParam("login") String login, @CookieParam("password") String password) {
-        User user = mb.getUserIdByLogin(login);
-        System.out.println(mb);
-        return mb.getAll(user);
+        try {
+            User user = mb.getUserIdByLogin(login);
+            System.out.println(mb);
+            return mb.getAll(user);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
 //        return "ok";
     }
 

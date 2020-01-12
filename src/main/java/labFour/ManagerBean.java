@@ -3,26 +3,29 @@ package labFour;
 import domain.Dot;
 import domain.User;
 
-import javax.ejb.Local;
-import javax.ejb.Remote;
+import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
-import javax.jws.soap.SOAPBinding;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.ws.rs.CookieParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-@Local
+
 @Singleton
-public class ManagerBean {
+@Path("somepath2")
+public class ManagerBean implements ManagerBeanInterface{
+
+    @GET
+    public String mockGet() { return  ""; }
+
     private EntityManager em;
 
-
-    public ManagerBean() {
+    @PostConstruct
+    public void init() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("dots");
         em = emf.createEntityManager();
     }
